@@ -1,15 +1,11 @@
 import json
 import os
-import datetime
+import time
 import logging as log
-
-from dataclasses  import dataclass
 
 from rich.console  import Console
 from rich.table    import Table
 from rich.markdown import Markdown
-
-console = Console()
 
 # console.print(dir(os))
 HOME_DIR  = os.environ.get("HOME")
@@ -22,10 +18,12 @@ log.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
+console = Console()
+
 class FileSetUp:
-    logging.info("\n" + "="*60)
-    logging.info("New Execution")
-    logging.info("="*60 + "\n")
+    log.info("="*30)
+    log.info("New Execution")
+    log.info("="*30 + "\n")
 
     def __init__(self):
         if os.path.exists(APP_PATH):
@@ -40,8 +38,16 @@ class FileSetUp:
 
             log.info("file created")
 
+class Task:
+    def __init__(self, id, data, done=False):
+        self.id   = id
+        self.data = data
+        self.done = done
+
+
 def main():
-    setup = FileSetUp()
+    while True:
+        setup = FileSetUp()
 
 if __name__ == "__main__":
     main()
