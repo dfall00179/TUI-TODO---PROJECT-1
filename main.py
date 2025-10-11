@@ -1,6 +1,6 @@
 import json
 import os
-import time
+import curses
 import logging as log
 
 from rich.console  import Console
@@ -20,6 +20,7 @@ log.basicConfig(
 
 console = Console()
 
+#Setting log and checking for todo.json file
 class FileSetUp:
     log.info("="*30)
     log.info("New Execution")
@@ -38,16 +39,33 @@ class FileSetUp:
 
             log.info("file created")
 
-class Task:
-    def __init__(self, id, data, done=False):
-        self.id   = id
-        self.data = data
-        self.done = done
+class Todo:
+    self.done= False
+    self.data= []
+    self.json_read = []
+    self.mode= "n"
+
+    def open_todo(self, id):
+        with open(APP_PATH, "w") as f:
+            self.json_read = json.load(f)
+
+    def save_todo(self):
+        with open(APP_PATH, "w") as f:
+            json.dump(self.data, f, indent=2)
+
+    def add_todo(self):
+        self.data.append({
+            "done": False,
+            "data": self.data
+
+        })
+        self.save_todo()
 
 
 def main():
     while True:
         setup = FileSetUp()
+        app   = Todo()
 
 if __name__ == "__main__":
     main()
